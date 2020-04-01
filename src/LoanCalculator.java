@@ -20,10 +20,10 @@
 
 public class LoanCalculator {
 
-    /* Global Variables */
-    /* Set constant double array, goodRate, to 3.0%, 4.5%, 6.0%. Final double[] goodRate = { 0.030, 0.045, 0.060}; */
-    /* Set constant double array, okRate, to 4.5%, 6.0%, 7.5%. Final double[] okRate = { 0.045, 0.060, 0.075}; */
-    /* Set constant double array, badRate, to 8.0%, 9.5%, 10.0%. Final double[] badRate = { 0.080, 0.095, 0.100}; */
+    /* Declares and initializes constants */
+    private static final double[] GOOD_RATE = {0.03, 0.045, 0.06};
+    private static final double[] OK_RATE = {0.045, 0.060, 0.075};
+    private static final double[] BAD_RATE = {0.08, 0.095, 0.1};
 
     /* Main Argument */
     public static void main(String[] args) {
