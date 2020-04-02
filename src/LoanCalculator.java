@@ -12,10 +12,11 @@
  * payments for 48 month, 60 month, and 72 month loans.
  * Program will calculate missing values.
  *
- * Version 0.1.0
+ * Version 0.1.2
  *
  * Change Log:
- * V0.1.0 - framework of methods added, algorithm added as comments, began new algorithms/changes to methods. -Reid
+ * V0.1.1 - framework of methods added, algorithm added as comments, began new algorithms/changes to methods. -Reid
+ * V0.1.2 - updated with global constants and getPayments method by David, 4/2/20 12:12pm - Reid
  */
 
 public class LoanCalculator {
