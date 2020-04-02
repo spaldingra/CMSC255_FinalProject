@@ -24,9 +24,12 @@ public class LoanCalculator {
     private static final double[] GOOD_RATE = {0.03, 0.045, 0.06};
     private static final double[] OK_RATE = {0.045, 0.060, 0.075};
     private static final double[] BAD_RATE = {0.08, 0.095, 0.1};
+    private static double userPrincipal = 0.0;
+    private static double[] userRate;
 
     /* Main Argument */
     public static void main(String[] args) {
+
 
         /* Set boolean variable for when to exit application, set orQuit to false, boolean orQuit = false; */
 
@@ -50,7 +53,7 @@ public class LoanCalculator {
 
         /* Call method to calculate credit scores */
 
-            /* else, if credic score is n
+            /* else, if credit score is n
             /* else, */
 
         /* error */
@@ -103,7 +106,24 @@ public class LoanCalculator {
     }
 
     /* method to calculate payments, returns array of doubles for payments at different lengths */
-    public static double[] getPayments(){
+    public static double[] getPayments() {
+
+        // Declares and initiates a new array
+        double[] array = new double[3];
+
+        // Calculates the payment for 48 months
+        double payment1 = (userPrincipal * (1 + userRate[0])) / 48;
+        array[0] = payment1;
+
+        // Calculates the payment for 60 months
+        double payment2 = (userPrincipal * (1 + userRate[1])) / 60;
+        array[1] = payment2;
+
+        // Calculates the payment for 72 months
+        double payment3 = (userPrincipal * (1 + userRate[2])) / 72;
+        array[2] = payment3;
+
+        return array;
 
         /* Calculate payment for 48 months, payment[1] = ( userPrincipal * ( 1 + userRate[0] ) ) / 48; */
 
