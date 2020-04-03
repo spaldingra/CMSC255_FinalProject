@@ -12,14 +12,15 @@
  * payments for 48 month, 60 month, and 72 month loans.
  * Program will calculate missing values.
  *
- * Version 0.2.0
+ * Version 0.2.1
  *
  * Change Log:
  * V0.1.1 - framework of methods added, algorithm added as comments, began new algorithms/changes to methods. -Reid
  * V0.1.2 - updated with global constants and getPayments method by David, added front end by David, 4/2/20 - Reid
  * v0.1.3 - added getRates by Mudassir, 4/2/20 - Reid
  * V0.2.0 - completed main method, getInput, getPrincipal, getScores methods. Minor changes across whole file.
- *          Finished logic for unfinished areas, added error catches, and tested code.
+ *          Finished logic for unfinished areas, added error catches, and tested code. 4/2/20 - Reid
+ * V0.2.1 - Fixed wording in instruction prompts for clarity.
  *          Final version for Milestone 2. 4/2/20 - Reid
  */
 
@@ -46,7 +47,9 @@ public class LoanCalculator {
         do {
 
             /* instruction prompt */
-            System.out.println("Input all of the following values except the one you wish to calculate.");
+            System.out.println();
+            System.out.println("Input all of the following values to calculate a loan. Enter '-99' for the value you wish to be calculated.");
+            System.out.println();
 
             /* Call method for inputs*/
             double[] inputs = getInput(userInput);
