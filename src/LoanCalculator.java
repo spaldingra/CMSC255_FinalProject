@@ -12,101 +12,196 @@
  * payments for 48 month, 60 month, and 72 month loans.
  * Program will calculate missing values.
  *
- * Version 0.1.0
+ * Version 0.2.0
  *
  * Change Log:
- * V0.1.0 - framework of methods added, algorithm added as comments, began new algorithms/changes to methods. -Reid
+ * V0.1.1 - framework of methods added, algorithm added as comments, began new algorithms/changes to methods. -Reid
+ * V0.1.2 - updated with global constants and getPayments method by David, added front end by David, 4/2/20 - Reid
+ * v0.1.3 - added getRates by Mudassir, 4/2/20 - Reid
+ * V0.2.0 - completed main method, getInput, getPrincipal, getScores methods. Minor changes across whole file.
+ *          Finished logic for unfinished areas, added error catches, and tested code.
+ *          Final version for Milestone 2. 4/2/20 - Reid
  */
+
+/* imports */
+import java.util.*;
 
 public class LoanCalculator {
 
     /* Declares and initializes constants */
-    private static final double[] GOOD_RATE = {0.03, 0.045, 0.06};
-    private static final double[] OK_RATE = {0.045, 0.060, 0.075};
-    private static final double[] BAD_RATE = {0.08, 0.095, 0.1};
-    private static double userPrincipal = 0.0;
-    private static double[] userRate;
+    private static final double[] goodRate = {0.03, 0.045, 0.05};
+    private static final double[] okRate = {0.045, 0.060, 0.065};
+    private static final double[] badRate = {0.08, 0.095, 0.1};
 
     /* Main Argument */
     public static void main(String[] args) {
 
-
         /* Set boolean variable for when to exit application, set orQuit to false, boolean orQuit = false; */
+        boolean orQuit = false;
 
         /*Set scanner input, Scanner userInput = new Scanner(System.in); */
+        Scanner userInput = new Scanner(System.in);
 
         /* Set up Do-While Loop for quit, do {...} while (orQuit != true); */
+        do {
 
-        /* Call method for inputs*/
+            /* instruction prompt */
+            System.out.println("Input all of the following values except the one you wish to calculate.");
 
-        /* if credit score is given and principal is given, */
+            /* Call method for inputs*/
+            double[] inputs = getInput(userInput);
 
-        /* Call method to get credit score rates */
+            /* if credit score is given and principal is given, to find payments */
+            if ((inputs[0] != -99) && (inputs[1] != -99) && (inputs[2] == -99)) {
 
-        /* Call method to calculate payments */
+                /* Call method to get credit score based interest rates */
+                double[] newRates = getRates(inputs[0]);
 
-        /* else, if credit score is given and payments are given, */
+                /* Call method to calculate payments */
+                double[] newPayments = getPayments(inputs[1], newRates);
 
-        /* Call method to get principal */
+                /* months counter for display */
+                int months = 48;
 
-        /* else, if payments are given and principal is given, */
+                /* display results with loop */
+                for (int i = 0; i < 3; i++){
 
-        /* Call method to calculate credit scores */
+                    System.out.printf("%nMonthly payments for a %d month loan would be $%,.2f /mo.", months, newPayments[i]);
+                    months += 12;
 
-            /* else, if credit score is n
+                }
+
+            }
+
+            /* else, if credit score is given and payments are given, to find principal */
+            else if ((inputs[0] != -99) && (inputs[1] == -99) && (inputs[2] != -99)) {
+
+                /* Call method to get credit score based interest rates */
+                double[] newRates = getRates(inputs[0]);
+
+                /* Call method to get principal */
+                double[] newPrincipal = getPrincipal(newRates, inputs[2]);
+
+                /* months counter for display */
+                int months = 48;
+
+                /* display results with loop */
+                for (int i = 0; i < 3; i++){
+
+                    System.out.printf("%nPrincipal for a %d month loan could be up to $%,.2f /mo.", months, newPrincipal[i]);
+                    months += 12;
+
+                }
+
+            }
+            /* else, if payments are given and principal is given, to find credit score needed */
+            else if ((inputs[0] == -99) && (inputs[1] != -99) && (inputs[2] != -99)) {
+
+                /* Call method to calculate credit scores */
+                String newScores = getScores(inputs[1], inputs[2]);
+
+                /* display results, ideal score for 60 mo loan */
+                System.out.printf("%nAn ideal credit score for a 60 mo. loan would be " + newScores + ".");
+
+            }
+
             /* else, */
+            else{
 
-        /* error */
+                /* error */
+                System.out.printf("%nERR: Error with inputs, please only only enter -99 for one value, and 0 for down payment if no payment.");
 
-        /* end do while */
+            }
+
+            /* print line to next */
+            System.out.println();
+
+            /* check for quit */
+            System.out.println("Would you like to do another calculation? Type 'quit' to Exit.");
+            if (userInput.next().equals("quit")){
+
+                orQuit = true;
+
+            }
+
+            /* scanner reset */
+            System.out.println();
+            userInput.nextLine();
+
+            /* end do while */
+        } while (orQuit != true);
 
     }
 
     /* method for gathering inputs */
-    public static String[] getInput() {
+    public static double[] getInput(Scanner userInput) {
 
-        /* Declare userScore, int userScore; Declare userAmount, double userAmount;
-        /* Declare userDownPay, double userDownPay; */
+        /* Declare userScore, userAmount, userDownPay, userMonthly */
+        double userScore = -99;
+        double userAmount = -99;
+        double userDownPay = 0;
+        double userMonthly = -99;
 
         /* Prompt user input for credit score and set userScore equal to input value, userScore = userInput.nextInt(); */
+        System.out.println("Input credit score, or enter -99 to calculate this value:");
+        userScore = userInput.nextDouble();
 
         /* Prompt user input for total amount financed and set userAmount to input value, userAmount = userInput.nextDouble(); */
+        System.out.println("Input total amount of loan, or enter -99 to calculate this value:");
+        userAmount = userInput.nextDouble();
 
         /* Prompt user input for down payment and set userDownPay to input value, userDownPay = userInput.nextDouble(); */
+        System.out.println("Input down payment (0 if no payment):");
+        userDownPay = userInput.nextDouble();
+
+        /* Prompt user input for monthly payment*/
+        System.out.println("Input monthly payment, or enter -99 calculate this value:");
+        userMonthly = userInput.nextDouble();
 
         /* Set userPrincipal to total amount minus down payment, double userPrincipal = userAmount - userDownPay; */
+        double userPrincipal = userAmount - userDownPay;
 
-        /* return user values as array of strings*/
+        /* return user values as array */
+        double[] userInputs = {userScore, userPrincipal, userMonthly};
+        return userInputs;
 
     }
 
     /* method to get credit score rates */
-    public static double[] getRates(){
+    public static double[] getRates(double userScore){
 
-        /* If statement for good rates, If (userScore >= 720 && userScore <= 850){...} */
+        double[] userRate = new double[3];
 
-            /* Set userRate equal to goodRate values, double[] userRate = goodRate; */
+        if (userScore >= 720 && userScore <= 850) {
 
-        /* Else if statement for ok rates, elif (userScore < 720 && userScore >= 650) {...} */
+            userRate = goodRate;
 
-            /* Set userRate equal to okRate values, double[] userRate = okRate; */
+        }
 
-        /* Else if statement for bad rates, elif (userScore < 650 && >= 300) {...} */
+        else if (userScore >= 650 && userScore < 720) {
 
-            /* Set userRate equal to badRate values, double[] userRate = badRate; */
+            userRate = okRate;
 
-        /* Else statement for score not in range/invalid entry, else{...} */
+        }
 
-            /* Print prompt “Invalid Credit Score” */
+        else if (userScore >= 300 && userScore < 650) {
 
-            /* Break; */
+            userRate = badRate;
 
-        /* Return userRate */
+        }
+
+        else {
+
+            System.out.println("Err: Invalid credit score");
+
+        }
+
+        return userRate;
 
     }
 
     /* method to calculate payments, returns array of doubles for payments at different lengths */
-    public static double[] getPayments() {
+    public static double[] getPayments(double userPrincipal, double[] userRate) {
 
         // Declares and initiates a new array
         double[] array = new double[3];
@@ -125,27 +220,59 @@ public class LoanCalculator {
 
         return array;
 
-        /* Calculate payment for 48 months, payment[1] = ( userPrincipal * ( 1 + userRate[0] ) ) / 48; */
-
-        /* Calculate payment for 60 months, payment[2] = ( userPrincipal * ( 1 + userRate[1] ) ) / 60; */
-
-        /* Calculate payment for 72 months, payment[3] = ( userPrincipal * ( 1 + userRate[2] ) ) / 72; */
-
-        /* returns payments in array */
-
     }
 
     /* method to get principal, returns double for principal value*/
-    public static double getPrincipal(){
+    public static double[] getPrincipal(double[] userRate, double userPay){
 
-        /* incomplete */
+        /* create empty array for return */
+        double[] userPrincipal = new double[3];
+
+        /* calculate principal for 48 month */
+        userPrincipal[0] = ((userPay * 48) / (1 + userRate[0]));
+
+        /* calculate principal for 60 month */
+        userPrincipal[1] = ((userPay * 60) / (1 + userRate[1]));
+
+        /* calculate principal for 72 month */
+        userPrincipal[2] = ((userPay * 48) / (1 + userRate[2]));
+
+        /* return values */
+        return userPrincipal;
 
     }
 
-    /* method to get credit scores, returns string for score range */
-    public static String getScores(){
+    /* method to get credit scores, returns string for score range needed for ideal 60 mo loan*/
+    public static String getScores(double userPrincipal, double userPay){
 
-        /* incomplete */
+        /* create new string value for return */
+        String newScores;
+
+        /* calculate rate needed */
+        double needRate = (((userPay * 60) / userPrincipal) - 1);
+
+        /* if rate is below 0.045, score needed is 720 - 850 */
+        if(needRate <= 0.045){
+
+            newScores = "720 - 850";
+
+        }
+
+        /* else, if rate is between 0.045 and 0.06, score needed is 650 - 720 */
+        else if ((needRate > 0.045) && (needRate <= 0.06)){
+
+            newScores = "650 - 720";
+
+        }
+        /* else, score needed is 300 - 650 */
+        else {
+
+            newScores = "300 - 650";
+
+        }
+
+        /* return value of scores */
+        return newScores;
 
     }
 
