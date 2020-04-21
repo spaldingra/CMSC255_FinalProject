@@ -25,17 +25,26 @@
  */
 
 /* imports */
-import java.util.*;
 
-public class LoanCalculator {
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-    /* Declares and initializes constants */
-    private static final double[] goodRate = {0.03, 0.045, 0.05};
-    private static final double[] okRate = {0.045, 0.060, 0.065};
-    private static final double[] badRate = {0.08, 0.095, 0.1};
+import java.util.Scanner;
+
+public class LoanCalculator extends Application {
 
     /* Main Argument */
     public static void main(String[] args) {
+
+        /*
+        Launches the GUI
+         */
+        launch(args);
+
+
 
         /* Set boolean variable for when to exit application, set orQuit to false, boolean orQuit = false; */
         boolean orQuit = false;
@@ -134,6 +143,23 @@ public class LoanCalculator {
             /* end do while */
         } while (orQuit != true);
 
+    }
+
+
+    /* Declares and initializes constants */
+    private static final double[] goodRate = {0.03, 0.045, 0.05};
+    private static final double[] okRate = {0.045, 0.060, 0.065};
+    private static final double[] badRate = {0.08, 0.095, 0.1};
+
+    /*
+    Loads the FXML and draws the GUI
+     */
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("LoanCalculator.fxml"));
+        primaryStage.setTitle("Loan Calculator App");
+        primaryStage.setScene(new Scene(root, 550, 450));
+        primaryStage.show();
     }
 
     /* method for gathering inputs */
