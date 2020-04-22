@@ -12,7 +12,7 @@
  * payments for 48 month, 60 month, and 72 month loans.
  * Program will calculate missing values.
  *
- * Version 0.3.1
+ * Version 0.3.2
  */
 
 import javafx.event.ActionEvent;

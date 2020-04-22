@@ -12,7 +12,7 @@
  * payments for 48 month, 60 month, and 72 month loans.
  * Program will calculate missing values.
  *
- * Version 0.3.1
+ * Version 0.3.2
  *
  * Change Log:
  * V0.1.1 - framework of methods added, algorithm added as comments, began new algorithms/changes to methods. -Reid
@@ -24,6 +24,7 @@
  *          Final version for Milestone 2. 4/2/20 - Reid
  * V0.3.0 - First working iteration with full integration of GUI, 4/21/20 - Reid and David
  * V0.3.1 - Added catch exception errors to methods, restructured to remove do-while, add clear all button, 4/21/20 - Reid
+ * V0.3.2 - Remove unnecessary code, 4/21/20 - Reid
  */
 
 /* imports */
@@ -63,40 +64,6 @@ public class LoanCalculator extends Application {
         primaryStage.setTitle("Loan Calculator App");
         primaryStage.setScene(new Scene(root, 500, 500));
         primaryStage.show();
-    }
-
-    /* method for gathering inputs, unused */
-    public static double[] getInput(Scanner userInput) {
-
-        /* Declare userScore, userAmount, userDownPay, userMonthly */
-        double userScore = -99;
-        double userAmount = -99;
-        double userDownPay = 0;
-        double userMonthly = -99;
-
-        /* Prompt user input for credit score and set userScore equal to input value, userScore = userInput.nextInt(); */
-        System.out.println("Input credit score, or enter -99 to calculate this value:");
-        userScore = userInput.nextDouble();
-
-        /* Prompt user input for total amount financed and set userAmount to input value, userAmount = userInput.nextDouble(); */
-        System.out.println("Input total amount of loan, or enter -99 to calculate this value:");
-        userAmount = userInput.nextDouble();
-
-        /* Prompt user input for down payment and set userDownPay to input value, userDownPay = userInput.nextDouble(); */
-        System.out.println("Input down payment (0 if no payment):");
-        userDownPay = userInput.nextDouble();
-
-        /* Prompt user input for monthly payment*/
-        System.out.println("Input monthly payment, or enter -99 calculate this value:");
-        userMonthly = userInput.nextDouble();
-
-        /* Set userPrincipal to total amount minus down payment, double userPrincipal = userAmount - userDownPay; */
-        double userPrincipal = userAmount - userDownPay;
-
-        /* return user values as array */
-        double[] userInputs = {userScore, userPrincipal, userMonthly};
-        return userInputs;
-
     }
 
     /* method to get credit score rates */
